@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//
+use App\Http\Controllers\LivewireTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::controller(LivewireTestController::class)
+    ->prefix('livewire-test')
+    ->group(function(){
+        Route::get('index','index')->name('livewire-test.index');
+        Route::get('register','register')->name('livewire-test.register');
+    });
 
 Route::get('/', function () {
     return view('welcome');
