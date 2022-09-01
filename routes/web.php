@@ -16,6 +16,23 @@ use App\Http\Controllers\AlpineTestController;
 |
 */
 
+Route::prefix('manager')
+        ->middleware('can:manager-higher')
+        ->group(function(){
+            // /manager/index
+            Route::get('index', function () {
+                dd('manager');
+            });
+    });
+
+Route::middleware('can:user-higher')
+        ->group(function(){
+            // /index
+            Route::get('index', function () {
+                dd('user');
+            });
+    });
+
 Route::controller(LivewireTestController::class)
     ->prefix('livewire-test')
     ->group(function(){
