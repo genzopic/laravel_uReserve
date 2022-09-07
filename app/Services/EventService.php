@@ -11,14 +11,14 @@ class EventService
     {
         // 重複時間帯の存在チェック
         return DB::table('events')
-                    ->whereDate('start_date',eventDate)
+                    ->whereDate('start_date',$eventDate)
                     ->whereTime('end_date','>',$startTime)
                     ->whereTime('start_date','<',$endTime)
                     ->exists();
 
     }
 
-    public static function joinDateAndTime($date,$time)
+    public static function joinDateAndTime($date,$time) 
     {
         $joinDateTime = $date . " " . $time;
         return Carbon::createFromFormat('Y-m-d H:i',$joinDateTime);
