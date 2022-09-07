@@ -82,6 +82,9 @@ class EventController extends Controller
     public function show(Event $event)
     {
         //
+        $event = Event::findOrFail($event->id);
+
+        return view('manager.events.show',compact('event'));
     }
 
     /**

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            イベント新規登録
+            イベント詳細
         </h2>
     </x-slot>
 
@@ -18,19 +18,18 @@
                         </div>
                     @endif
             
-                    <form method="POST" action="{{ route('events.store') }}">
-                        @csrf
+                    <form method="get" action="{{ route('events.edit',[ 'event' => $event->id ]) }}">
                         
                         {{-- イベント名 --}}
                         <div class="mt-4">
                             <x-jet-label for="event_name" value="イベント名" />
-                            <x-jet-input id="event_name" class="block mt-1 w-full" type="text" name="event_name" :value="old('event_name')" required autofocus />
+                            {{ $event->name }}
                         </div>
 
                         {{-- イベント詳細 --}}
                         <div class="mt-4">
                             <x-jet-label for="information" value="イベント詳細" />
-                            <x-textarea row="3" id="information" class="block mt-1 w-full" name="information">{{ old('information') }}</x-textarea>
+                            {!! nl2br(e($event->information)) !!}
                         </div>
                         
                         <div class="md:flex justify-between">
@@ -56,7 +55,7 @@
                             {{-- 定員人数 --}}
                             <div class="mt-4">
                                 <x-jet-label for="max_people" value="定員人数" />
-                                <x-jet-input id="max_people" class="block mt-1 w-full" type="number" name="max_people" required />
+                                {{ $event->max_people }}
                             </div>
                             {{-- 表示有無 --}}
                             <div class="flex space-x-4 justify-center-aroud" >
@@ -65,7 +64,7 @@
                             </div>
                             {{-- 新規登録ボタン --}}
                             <x-jet-button>
-                                新規登録
+                                編集する
                             </x-jet-button>
                         </div>
                     </form>    
