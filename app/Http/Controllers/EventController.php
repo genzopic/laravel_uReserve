@@ -100,6 +100,13 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         //
+        $event = Event::findOrFail($event->id);
+        // $eventDate = $event->eventDate;
+        // $startTime = $event->startTime;
+        // $endTime = $event->endTime;
+        // dd($eventDate,$startTime,$endTime);
+
+        return view('manager.events.edit',compact('event'));
     }
 
     /**
@@ -112,6 +119,30 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, Event $event)
     {
         //
+        // 重複時間帯の存在チェック
+        $check = EventService::countEventDuplication($request['event_date'],
+                                                     $request['start_time'],
+                                                     $request['end_time']);
+        if($check > 1){
+            session()->flash('status','この時間帯は既に他のイベントが存在します');
+            return view('manager.events.edit',compact('event'));
+        };
+
+        // 開始日時と終了日時をセット
+        $startDate = EventService::joinDateAndTime($request['event_date'],$request['start_time']);
+        $endDate = EventService::joinDateAndTime($request['event_date'],$request['end_time']);
+
+        // イベント情報を更新
+        $event->name = $request['event_name'];
+        $event->information = $request['information'];
+        $event->start_date = $startDate;
+        $event->end_date = $endDate;
+        $event->max_people = $request['max_people'];
+        $event->is_visible = $request['is_visible'];
+        $event->save();
+
+        session()->flash('status','更新しました');
+        return to_route('events.index');
     }
 
     /**

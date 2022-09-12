@@ -18,6 +18,17 @@ class EventService
 
     }
 
+    public static function countEventDuplication($eventDate,$startTime,$endTime)
+    {
+        // 重複時間帯の存在チェック
+        return DB::table('events')
+                    ->whereDate('start_date',$eventDate)
+                    ->whereTime('end_date','>',$startTime)
+                    ->whereTime('start_date','<',$endTime)
+                    ->count();
+
+    }
+
     public static function joinDateAndTime($date,$time) 
     {
         $joinDateTime = $date . " " . $time;

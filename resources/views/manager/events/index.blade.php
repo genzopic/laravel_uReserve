@@ -28,6 +28,7 @@
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約人数</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">定員</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">表示・非表示</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">操作</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -38,7 +39,12 @@
                                 <td class="px-4 py-3">{{ $event->end_date }}</td>
                                 <td class="px-4 py-3"></td>
                                 <td class="px-4 py-3">{{ $event->max_people }}</td>
-                                <td class="px-4 py-3">{{ $event->is_visible }}</td>                    
+                                <td class="px-4 py-3">{{ $event->is_visible }}</td>
+                                <td class="">
+                                  <div class="flex">
+                                    <a class="border p-1 text-xs hover:bg-indigo-200" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a>
+                                  </div>
+                                </td>
                               </tr>
                             @endforeach
                           </tbody>
