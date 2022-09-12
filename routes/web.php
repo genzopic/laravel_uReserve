@@ -25,6 +25,7 @@ Route::prefix('manager')
             //     dd('manager');
             // });
             //---------------------
+            Route::get('events/past',[EventController::class,'past'])->name('events.past');
             // /manager/events/index など
             Route::resource('events',EventController::class);
     });

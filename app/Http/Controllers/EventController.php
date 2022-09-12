@@ -20,10 +20,22 @@ class EventController extends Controller
     {
         //
         $events = DB::table('events')
-                    ->orderBy('start_date','asc')
+            ->whereDate('start_date','>=',Carbon::today())
+            ->orderBy('start_date','asc')
                     ->paginate(10);
         
         return view('manager.events.index',compact('events'));
+    }
+
+    public function past()
+    {
+        //
+        $events = DB::table('events')
+                    ->whereDate('start_date','<',Carbon::today())
+                    ->orderBy('start_date','desc')
+                    ->paginate(10);
+        return view('manager.events.past',compact('events'));
+
     }
 
     /**
@@ -160,4 +172,5 @@ class EventController extends Controller
         return to_route('events.index');
         
     }
+
 }

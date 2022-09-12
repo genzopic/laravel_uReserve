@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            イベント管理
+            過去のベント管理
         </h2>
     </x-slot>
 
@@ -16,11 +16,8 @@
                             {{ session('status') }}
                         </div>
                       @endif
-                      
-                      <div class="flex justify-between">
-                        <button onclick="location.href='{{ route('events.past') }}'" class="flex mb-4 ml-auto text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded">過去のイベント一覧</button>
-                        <button onclick="location.href='{{ route('events.create') }}'" class="flex mb-4 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">新規登録</button>  
-                      </div>
+
+                      {{-- <button onclick="location.href='{{ route('events.create') }}'" class="flex mb-4 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">新規登録</button> --}}
                       <div class="w-full mx-auto overflow-auto">
                         <table class="table-auto w-full text-left whitespace-no-wrap">
                           <thead>
@@ -48,7 +45,7 @@
                                     <form class="" id="delete_{{ $event->id }}" method="post" action="{{ route('events.destroy',[ 'event' => $event->id ]) }}">
                                       @csrf
                                       @method('delete')
-                                      <a class="text-sm p-1 border-0 bg-green-100 hover:bg-green-200 rounded" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a>
+                                      {{-- <a class="text-sm p-1 border-0 bg-green-100 hover:bg-green-200 rounded" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a> --}}
                                       <a href="#" data-id="{{ $event->id }}" onclick="deletePost(this)" class="text-sm p-1 text-white bg-red-400 border-0 focus:outline-none hover:bg-red-500 rounded">削除</a>
                                     </form>
                                   </div>

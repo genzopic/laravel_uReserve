@@ -66,9 +66,11 @@
                                 @endif
                             </div>
                             {{-- 新規登録ボタン --}}
-                            <x-jet-button>
-                                編集する
-                            </x-jet-button>
+                            @if ($event->event_date >= \Carbon\Carbon::today()->format('Y年m月d日'))
+                                <x-jet-button>
+                                    編集する
+                                </x-jet-button>
+                            @endif
                         </div>
                     </form>    
                 </div>
