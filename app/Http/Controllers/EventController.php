@@ -151,8 +151,13 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
         //
+        Event::findOrFail($id)->delete();
+
+        session()->flash('status','削除しました');
+        return to_route('events.index');
+        
     }
 }

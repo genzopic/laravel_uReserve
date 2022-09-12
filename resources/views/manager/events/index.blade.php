@@ -33,7 +33,7 @@
                           </thead>
                           <tbody>
                             @foreach ($events as $event)
-                            <tr>
+                            <tr class="">
                                 <td class="text-blue-500 px-4 py-3"><a href="{{ route('events.show',[ 'event' => $event->id ]) }}">{{ $event->name }}</a></td>
                                 <td class="px-4 py-3">{{ $event->start_date }}</td>
                                 <td class="px-4 py-3">{{ $event->end_date }}</td>
@@ -42,7 +42,12 @@
                                 <td class="px-4 py-3">{{ $event->is_visible }}</td>
                                 <td class="">
                                   <div class="flex">
-                                    <a class="border p-1 text-xs hover:bg-indigo-200" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a>
+                                    <form class="" id="delete_{{ $event->id }}" method="post" action="{{ route('events.destroy',[ 'event' => $event->id ]) }}">
+                                      @csrf
+                                      @method('delete')
+                                      <a class="text-sm p-1 border-0 bg-green-100 hover:bg-green-200 rounded" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a>
+                                      <a href="#" data-id="{{ $event->id }}" onclick="deletePost(this)" class="text-sm p-1 text-white bg-red-400 border-0 focus:outline-none hover:bg-red-500 rounded">削除</a>
+                                    </form>
                                   </div>
                                 </td>
                               </tr>
@@ -60,4 +65,12 @@
             </div>
         </div>
     </div>
+    <script>
+      function deletePost(e) {
+        'use strict';
+        if (confirm('本当に削除してもいいですか?')) {
+          document.getElementById('delete_' + e.dataset.id).submit(); 
+        }
+      }
+    </script>
 </x-app-layout>
