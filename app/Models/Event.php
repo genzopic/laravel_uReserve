@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 //
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
+use App\Models\User;
 
 class Event extends Model
 {
@@ -44,6 +45,12 @@ class Event extends Model
         return new Attribute(
             get: fn() => Carbon::parse($this->end_date)->format('H時i分')
         );
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'reservations')
+        ->withPivot('id','number_of_people','canceled_date');
     }
 
 }

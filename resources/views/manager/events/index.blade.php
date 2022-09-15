@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            イベント管理
+            本日以降のイベント一覧
         </h2>
     </x-slot>
 
@@ -40,7 +40,13 @@
                                 <td class="text-blue-500 px-4 py-3"><a href="{{ route('events.show',[ 'event' => $event->id ]) }}">{{ $event->name }}</a></td>
                                 <td class="px-4 py-3">{{ $event->start_date }}</td>
                                 <td class="px-4 py-3">{{ $event->end_date }}</td>
-                                <td class="px-4 py-3"></td>
+                                <td class="px-4 py-3">
+                                  @if (is_null($event->number_of_people))
+                                    0
+                                  @else
+                                    {{ $event->number_of_people }}
+                                  @endif
+                                </td>
                                 <td class="px-4 py-3">{{ $event->max_people }}</td>
                                 <td class="px-4 py-3">{{ $event->is_visible }}</td>
                                 <td class="">
@@ -48,8 +54,8 @@
                                     <form class="" id="delete_{{ $event->id }}" method="post" action="{{ route('events.destroy',[ 'event' => $event->id ]) }}">
                                       @csrf
                                       @method('delete')
-                                      <a class="text-sm p-1 border-0 bg-green-100 hover:bg-green-200 rounded" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a>
-                                      <a href="#" data-id="{{ $event->id }}" onclick="deletePost(this)" class="text-sm p-1 text-white bg-red-400 border-0 focus:outline-none hover:bg-red-500 rounded">削除</a>
+                                      <a class="text-sm p-1 border-0 bg-green-100 hover:bg-green-200 rounded" href="{{ route('events.edit',[ 'event' => $event->id ]) }}">編集</a><br>
+                                      <a class="text-sm p-1 border-0 text-white bg-red-400 focus:outline-none hover:bg-red-500 rounded" href="#" data-id="{{ $event->id }}" onclick="deletePost(this)" >削除</a>
                                     </form>
                                   </div>
                                 </td>
