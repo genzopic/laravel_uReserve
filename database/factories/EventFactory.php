@@ -16,7 +16,8 @@ class EventFactory extends Factory
      */
     public function definition()
     {
-        $dummyDate = $this->faker->dateTimeThisMonth;
+        // $dummyDate = $this->faker->dateTimeThisMonth;
+        $dummyDate = $this->faker->dateTimeBetween('-1 months','+1 months');
 
         return [
             //
