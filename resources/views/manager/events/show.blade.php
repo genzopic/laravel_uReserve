@@ -88,14 +88,24 @@
                               <tr>
                                 <th class="px-4 py-2 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約者名</th>
                                 <th class="px-4 py-2 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">予約人数</th>
+                                <th class="px-4 py-2 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">キャンセル日</th>
                               </tr>
                             </thead>
                             <tbody>
                               @foreach ($reservations as $reservation)
-                                <tr class="">
-                                    <td class="px-4 py-2">{{ $reservation['name'] }}</td>
-                                    <td class="px-4 py-2">{{ $reservation['number_of_people'] }}</td>
-                                </tr>
+                                @if (is_null($reservation['canceled_date']))
+                                    <tr class="">
+                                        <td class="px-4 py-2">{{ $reservation['name'] }}</td>
+                                        <td class="px-4 py-2">{{ $reservation['number_of_people'] }}</td>
+                                        <td></td>
+                                    </tr>
+                                @else
+                                    <tr class="bg-gray-400">
+                                        <td class="px-4 py-2">{{ $reservation['name'] }}</td>
+                                        <td class="px-4 py-2">{{ $reservation['number_of_people'] }}</td>
+                                        <td class="px-4 py-2">{{ \Carbon\Carbon::createFromTimeString($reservation['canceled_date'])->format('Y年m月d日')  }}</td>
+                                    </tr>
+                                @endif
                               @endforeach
                             </tbody>
                           </table>
