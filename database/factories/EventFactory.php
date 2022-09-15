@@ -16,9 +16,19 @@ class EventFactory extends Factory
      */
     public function definition()
     {
+        $availableHour = $this->faker->numberBetween(10,18);    //　１０時〜１８時　
+        $minutes = [0,30];                                      // 0分か３０分
+        $mKey = array_rand($minutes);                           // ランダムにキーを取得
+        $addHour = $this->faker->numberBetween(1,3);            // イベント時間１時間〜３時間
+
         // $dummyDate = $this->faker->dateTimeThisMonth;
         $dummyDate = $this->faker->dateTimeBetween('-1 months','+1 months');
+        $startDate = $dummyDate->setTime($availableHour,$minutes[$mKey]);
+        $clone = clone $startDate;
+        $endDate = $clone->modify('+'.$addHour.'hour');
 
+        // dd($startDate,$endDate);
+         
         return [
             //
             'name' => $this->faker->name,

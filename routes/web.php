@@ -49,7 +49,8 @@ Route::get('alpine-test/index',[AlpineTestController::class,'index']);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('calendar');
 });
 
 Route::middleware([
