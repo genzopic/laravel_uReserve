@@ -34,8 +34,10 @@ class EventFactory extends Factory
             'name' => $this->faker->name,
             'information' => $this->faker->realText,
             'max_people' => $this->faker->numberBetween(1,20),
-            'start_date' => $dummyDate->format('Y-m-d H:i:s'),
-            'end_date' => $dummyDate->modify('+1hour')->format('Y-m-d H:i:s'),
+            // 'start_date' => $dummyDate->format('Y-m-d H:i:s'),
+            // 'end_date' => $dummyDate->modify('+1hour')->format('Y-m-d H:i:s'),
+            'start_date' => $startDate->format('Y-m-d H:i:s'),
+            'end_date' => $endDate->format('Y-m-d H:i:s'),
             'is_visible' => $this->faker->boolean,
         ];
     }
