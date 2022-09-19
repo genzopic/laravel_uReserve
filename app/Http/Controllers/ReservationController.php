@@ -50,6 +50,7 @@ class ReservationController extends Controller
 
         if(is_null($reservedPeople) || 
             $event->max_people >= $reservedPeople->number_of_people + $request->reserved_people){
+            // 予約直前に、もう一度チェック
             // 最大人数よりも予約済み人数＋今回の人数が小さい場合は、予約可能
             // 予約情報を新規登録
             Reservation::create([
