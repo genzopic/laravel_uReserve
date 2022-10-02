@@ -69,12 +69,16 @@
                                     </select>
                                 @endif
                             </div>
-                            <input type="hidden" name="id" value="{{ $event->id }}">
-                            {{-- 予約ボタン --}}
-                            @if ($reservablePeople > 0)
-                                <x-jet-button>
-                                    予約する
-                                </x-jet-button>
+                            @if($isReserved === null)
+                                <input type="hidden" name="id" value="{{ $event->id }}">
+                                {{-- 予約ボタン --}}
+                                @if ($reservablePeople > 0)
+                                    <x-jet-button>
+                                        予約する
+                                    </x-jet-button>
+                                @endif
+                            @else
+                                <span class="text-xs">このイベントは既に予約済です</span>
                             @endif
                         </div>
                     </form>    

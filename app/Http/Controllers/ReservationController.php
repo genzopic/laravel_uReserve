@@ -18,8 +18,10 @@ class ReservationController extends Controller
 
     public function detail($id)
     {
+        // イベント情報の取得
         $event = Event::findOrFail($id);
 
+        // 予約されている人数
         $reservedPeople = DB::table('reservations')
         ->select('event_id',DB::raw('sum(number_of_people) as number_of_people'))
         ->whereNull('canceled_date')
@@ -27,13 +29,21 @@ class ReservationController extends Controller
         ->having('event_id',$event->id)
         ->first();
 
+        // 予約可能人数
         if(!is_null($reservedPeople)){
             $reservablePeople = $event->max_people - $reservedPeople->number_of_people;
         } else {
             $reservablePeople = $event->max_people;
         }
-        // dd($reservablePeople);
-        return view('event-detail',compact('event','reservablePeople'));
+
+        // 自分が予約しているか
+        $isReserved = Reservation::where('user_id','=',Auth::id())
+        ->where('event_id','=',$id)
+        ->where('canceled_date','=',null)
+        ->latest()
+        ->first();
+
+        return view('event-detail',compact('event','reservablePeople','isReserved'));
 
     }
 
